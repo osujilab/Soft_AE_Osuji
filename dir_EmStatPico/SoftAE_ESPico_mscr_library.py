@@ -3,12 +3,15 @@
 ###############################################################################
 
 # Clearest solution so far: each time we need a new type of measurement from the Pico, 
-# generate a Python wrapper around a static MethodScript file that can flexibly change
+# create a Python wrapper around a static MethodScript file that can flexibly change
 # particular technique parameters - these will run one at a time when passed to a script
-# provided by PalmSens, and extract data through that as well. 
+# provided by PalmSens, and extract data through that as well.
+#
+# The script will generate/overwrite a file housed in "./scriptbin" that contains the measurement 
+# instructions in MethodSCRIPT, as parsed by the instrument.
 # 
 # What parameters need varying?
-# - filename = file name to write to the script directory
+# - filename = file name to write to the "scriptbin" directory
 # - mux_ch = multiplexer channel (1 thru 16)
 # - mVac = Signal amplitude (mV)
 # - f_hi = High freq bound (Hz)
@@ -50,9 +53,6 @@ def lsv_run_mscrbuild(filename,mux_ch):
     
     chan = str(hex(17*(mux_ch-1)))+'i' # channel index shift to select MUX 1 thru 16 
     
-    # need to figure out robust filename handling (whether exists or not, don't want to create new one each time)
-    # writing custom LSV script to pass to MSCRIPT_FILE_PATH in the EmStat prepackaged section
-    
     f = open(filename, "w")
     f.write("e\n"
             "set_gpio_cfg 0x3FFi 1\n" #proper GPIO config for MUX interfacing
@@ -69,7 +69,7 @@ def lsv_run_mscrbuild(filename,mux_ch):
             f"set_gpio {chan}\n"
             "set_e -1000m\n"
             "wait 100m\n"
-            "meas_loop_lsv p c -1 1 10m 1\n"
+            "meas_loop_lsv p c -1 1 10m 1\n" # currently set to a fixed sweep from -1 to +1 V in 10mV increments.
             " pck_start\n pck_add p\n pck_add c\n pck_end\nendloop\n"
             "on_finished:\n"
             "cell_off\n\n")
