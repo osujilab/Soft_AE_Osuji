@@ -2,10 +2,13 @@
 # Custom MethodScript building for automated/autonomous EmStat Pico measurements
 ###############################################################################
 
+# ** Likely worth converting to a class definition **
+
 # Clearest solution so far: each time we need a new type of measurement from the Pico, 
-# create a Python wrapper around a static MethodScript file that can flexibly change
-# particular technique parameters - these will run one at a time when passed to a script
-# provided by PalmSens, and extract data through that as well.
+# make a new technique definition that is essentially a Python wrapper around an otherwise 
+# static MethodScript file, but can flexibly change particular technique parameters. 
+# These files will run one at a time when passed to a script provided by PalmSens, and 
+# extract data through that as well.
 #
 # The script will generate/overwrite a file housed in "./scriptbin" that contains the measurement 
 # instructions in MethodSCRIPT, as parsed by the instrument.
