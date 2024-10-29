@@ -39,16 +39,30 @@ class syringe:
 
         com_syr.write(str(ID) + 'tvolume ' + str(float(dispense_vol)) + ' ul')
         time.sleep(0.1)
+
+        com_syr.write(str(ID) + 'irun')
     
     def syr_end(self):
         #rm = pyvisa.ResourceManager()
         rm.close()
         print("Session closed.")
 
-    def flush(self):
-        """This function goes through a flushing method"""
+    def Flush_AE(self, flush_volume_0, flush_volume_1, flush_time, DCDG_flush):
+        """This function goes through a flushing method for syringes 0-1. 
+        Ensure sufficient time allowed for liquid loss"""
+        rate_flush_0 = 60 * (flush_volume_0 / flush_time)
+        rate_flush_1 = 60 * (flush_volume_1 / flush_time) 
+        #flush the piping
+        if DCDG_flush == 1:
 
+            single_pump(sy_dia, res_vol, 1, rate_flush_1, flush_volume_1) # type: ignore
+            time.sleep(1)
+
+        single_pump(sy_dia, res_vol, 0, rate_flush_0, flush_volume_0) # type: ignore
+        time.sleep(0.1)
+        time.sleep(flush_time+30)     
 
 ##TEST##
-joe = syringe('ASRL4::INSTR', 115200, 12.03)
-joe.syr_end()
+#joe = syringe('ASRL4::INSTR', 115200, 12.03)
+#joe.syr_end()
+#
