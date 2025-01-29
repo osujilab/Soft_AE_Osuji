@@ -2,6 +2,7 @@ Autonomous Experimentation codebase for the Osuji lab, based at the University o
 For information, please contact one of the Soft AE Admins or the Osuji lab PI
 PI: Chinedum Osuji
 Admins: Chris Johnson, Pavel Shapturenka, Yvonne Zagzag
+Additional Users: Justin Hughes, Po-ting Lin
 
 Current functionality is bulk electrical conductivity measurements, POM processing, and basic impedance spectroscopy analysis.
 
