@@ -1,11 +1,19 @@
-Autonomous Experimentation codebase for the Osuji lab, based at the University of Pennsylvania, 2024. Replacing old codebase due to confusion about permissions.
-For information, please contact one of the Soft AE Admins or the Osuji lab PI
-PI: Chinedum Osuji
-Admins: Chris Johnson, Pavel Shapturenka, Yvonne Zagzag
-Additional Users: Justin Hughes, Po-ting Lin
+<b> <h1> Autonomous Experimentation (AE) Codebase for the Soft-AE Setup, Osuji Lab </h1> </b>
+<h4> Department of Chemical and Biomolecular Engineering, University of Pennsylvania </h4>
+<h4> Created: November 2024 </h4>
 
-Current functionality is bulk electrical conductivity measurements, POM processing, and basic impedance spectroscopy analysis.
+For information, please contact one of the Soft AE Admins or the Osuji lab PI: cosuji@seas.upenn.edu
 
-To be added here:
+<b>PI:</b> Chinedum Osuji 
 
-ThorLabs Camera Control, Temperature Stage Control, AE Feedback Loop on Individual Projects
+**Admins:** Chris Johnson, Pavel Shapturenka, Yvonne Zagzag
+
+**Additional Users:** Justin Hughes, Po-ting Lin
+
+Current Soft-AE functionality integrates stage motion, liquid dispensing, and polarized optical microscopy to afford high-throughput soft material formulation and inspection. These capabilities also enable bulk electrical and ionic conductivity measurements via four-point resistivity and basic impedance spectroscopy analysis, respectively, which are under active development. High-throughput methods are extended to autonomous experimentation *via* in-loop implementation of algorithms such as Bayesian optimization and Gaussian process-informed parameter phase space exploration.
+
+All capabilities are currently being packaged into a graphical user interface via tkinter, featuring manual instrument control and human-in-the-loop (HITL) experimentation. 
+
+All Soft-AE functionality is organized into classes (located in ./SoftAE_classPkg). Each instrument capability is imported from this directory and initialized as a class instance, with default values specified for the specific setup in the Osuji lab in the class definition.
+
+High-throuhgput and AE campaigns are currently run via Jupyter notebooks by importing all required dependencies and running initialization codeblocks that handle liquid dispensing and ensure instrument connectivity.
