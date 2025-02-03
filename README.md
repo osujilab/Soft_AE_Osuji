@@ -17,3 +17,5 @@ All capabilities are currently being packaged into a graphical user interface vi
 All Soft-AE functionality is organized into classes (located in ./SoftAE_classPkg). Each instrument capability is imported from this directory and initialized as a class instance, with default values specified for the specific setup in the Osuji lab in the class definition.
 
 High-throuhgput and AE campaigns are currently run via Jupyter notebooks by importing all required dependencies and running initialization codeblocks that handle liquid dispensing and ensure instrument connectivity.
+
+![SoftAE_Stage](https://github.com/user-attachments/assets/a399800e-c51a-4440-82a7-eb72cccfdd47)
