@@ -18,4 +18,8 @@ All Soft-AE functionality is organized into classes (located in ./SoftAE_classPk
 
 High-throuhgput and AE campaigns are currently run via Jupyter notebooks by importing all required dependencies and running initialization codeblocks that handle liquid dispensing and ensure instrument connectivity.
 
-![SoftAE_Stage](https://github.com/user-attachments/assets/a399800e-c51a-4440-82a7-eb72cccfdd47)
+<div style="width: 1160px; height: 624px;">
+    <img src="https://github.com/user-attachments/assets/9c3b68e6-0f35-4500-9d69-05e6089ae3ed" width="62%" height="62%">
+    <img src="https://github.com/user-attachments/assets/a399800e-c51a-4440-82a7-eb72cccfdd47" width="25%" height="25%">
+</div>
+
