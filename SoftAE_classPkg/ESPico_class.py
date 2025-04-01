@@ -65,8 +65,9 @@ class ESPico:
         return rawdata
     
 
-    def eis_dataplot(self,rawdata,ch): #plot incoming EIS raw data from a single channel
-        AX1_COLOR = 'red'
+    def eis_dataplot(self,rawdata,ch,saveflag=0,savepath=None): #plot incoming EIS raw data from a single channel
+        AX1_PRIMARY = 'red'
+        AX1_SECONDARY= 'green'
         AX2_COLOR = 'blue'
         f = palmsens.mscript.get_values_by_column(rawdata, 0)
         zreal = palmsens.mscript.get_values_by_column(rawdata, 1)
@@ -78,9 +79,14 @@ class ESPico:
         zimg = -zimg
 
         # Plot the results.
+        #initialize a figure with two subplots and multiple axes.
+        fig1 , axs = plt.subplots(1,2)
+
         # Show the Nyquist plot as figure 1.
-        plt.figure(1)
-        plt.loglog(zreal, zimg)
+       
+        plt.axes(axs[0])
+        plt.subplot(1,2,1)
+        plt.plot(zreal, zimg)
         plt.title(f"Nyquist plot, CH{str(ch)}")
         plt.axis('equal')
         plt.grid()
@@ -89,33 +95,45 @@ class ESPico:
         # plt.savefig('nyquist_plot.png')
 
         # Show the Bode plot as dual y axis (sharing the same x axis).
-        fig, ax1 = plt.subplots()
+        plt.subplot(1,2,2)
+        ax1 = plt.axes(axs[1])
         ax2 = ax1.twinx()
 
         ax1.set_xlabel('Frequency (Hz)')
         ax1.grid(which='major', axis='x', linestyle='--', linewidth=0.5, alpha=0.5)
-        ax1.set_ylabel('Z', color=AX1_COLOR)
+        ax1.set_ylabel('Z components (red real, greenDash img)', color=AX1_PRIMARY)
         # Make x axis logarithmic.
-        ax1.loglog(f, z, color=AX1_COLOR)
+        zr = ax1.semilogx(f, zreal, color=AX1_PRIMARY)
+        zi = ax1.semilogx(f,zimg,'--',color=AX1_SECONDARY)
         # Show ticks.
-        ax1.tick_params(axis='y', labelcolor=AX1_COLOR)
+        ax1.tick_params(axis='y', labelcolor=AX1_PRIMARY)
         # Turn on the minor ticks, which are required for the minor grid.
         ax1.minorticks_on()
         # Customize the major grid.
-        ax1.grid(which='major', axis='y', linestyle='--', linewidth=0.5, alpha=0.5, color=AX1_COLOR)
+        ax1.grid(which='major', axis='y', linestyle='--', linewidth=0.5, alpha=0.5, color=AX1_PRIMARY)
 
         # We already set the x label with ax1.
         ax2.set_ylabel('-Phase (degrees)', color=AX2_COLOR)
-        ax2.semilogx(f, phase, color=AX2_COLOR)
+        phs = ax2.plot(f, phase, color=AX2_COLOR)
         ax2.tick_params(axis='y', labelcolor=AX2_COLOR)
         ax2.minorticks_on()
         ax2.grid(which='major', axis='y', linestyle='--', linewidth=0.5, alpha=0.5, color=AX2_COLOR)
+        
+        lns = zr+zi+phs
+        labs = [l.get_label() for l in lns]
+        ax2.legend(lns,labs,loc='best')
 
-        fig.suptitle(f"Bode plot, CH{str(ch)}")
-        fig.tight_layout()
+        plt.title(f"Bode plot, CH{str(ch)}")
+        fig1.set_figwidth(8)
+        fig1.set_figheight(4)
+        fig1.tight_layout()
+        
+        if saveflag == 1:
+            plt.savefig(savepath)
+
         plt.show()
 
-        alldata = [f, z, phase]
+        alldata = [f, z, phase, zreal, zimg]
 
         return alldata
 

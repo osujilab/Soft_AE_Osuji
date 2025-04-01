@@ -45,11 +45,15 @@ class tempControl:
             print(f"{self.name} setpoint T changed from {cur_SP} \N{DEGREE SIGN}C to {T_SP*1.0} \N{DEGREE SIGN}C.")
 
     def wait(self,within):
+        t_0 = time.time()
         # within: acceptable absolute degrees around target to proceed
         # band: (currently not in use): percentage range
         # while abs(self.get_sp()-self.get_pv())/self.get_pv() > band:
         while abs(self.get_sp()-self.get_pv()) > within:
-            time.sleep(20)
+            t_el = time.time()-t_0
+            print(f'Waiting for temp target... (elapsed: {np.round(t_el/3600,0).astype(int)}h{np.round(t_el/60,0).astype(int)}m{np.round(t_el%60).astype(int)}s)')
+            time.sleep(30)
+        print('Target hit!')
 
     def ramp_linear(self,T_start,T_end,t_span,up_int,print_flag=1):
         # Simple temperature ramp script (holds everything else up while running) -- move to tempControl class
@@ -86,3 +90,4 @@ class tempControl:
 # stageT.get_sp()
 # stageT.write_sp(20)
 # print(f"Current stage T: {stageT.get_pv()} \N{DEGREE SIGN}C")
+

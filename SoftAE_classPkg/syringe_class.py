@@ -6,7 +6,7 @@ import pyvisa
 import time
 import nidaqmx
 #from SoftAE_classPkg import stage_class
-rm = pyvisa.ResourceManager()
+
 #We want each stage to be an object with attributes and functions
 #Attributes of stage:
 #1. Flow rate of syringe

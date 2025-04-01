@@ -23,13 +23,12 @@ class stage:
     def __init__(self, port, baud):
         self.port = port
         self.baud = baud #We know this is 921600 for our stage.
-        global com_pxpy #This fixed the continuous opening - global. 
+        #global com_pxpy #This fixed the continuous opening - global. 
         #Make sure not to define com_pxpy in any other function.
         self.rm = pyvisa.ResourceManager()
-        # com_pxpy = self.rm.open_resource(self.port)
+        #com_pxpy = self.rm.open_resource(self.port)
         # self.com_pxpy = com_pxpy
         self.com_pxpy = self.rm.open_resource(self.port)
-
         
         #global 
 
