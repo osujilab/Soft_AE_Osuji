@@ -1,7 +1,5 @@
 # ThorLabs Camera class
 
-# work in progress - this is not currently functional. Pavel -Oct 30 2024
-
 #stages of an active camera:
 
 # 1. Created SDK instance (TLCameraSDK). Allows use to create any # of parallel camera objects w/ attributed serial numbers
@@ -69,7 +67,7 @@ class Camera():
                 # Convert to 3-channel for OpenCV
                 nd_image_array = np.stack((numpy_shaped_image,) * 3, -1).astype(np.uint8)
                 #lab_image = cv2.cvtColor(nd_image_array, cv2.COLOR_BGR2LAB)
-                plt.imshow(nd_image_array)
+                #plt.imshow(nd_image_array)
                 return nd_image_array
                 
             else:
@@ -91,7 +89,7 @@ class Camera():
                     # Convert to 3-channel for OpenCV
                     nd_image_array = np.stack((numpy_shaped_image,) * 3, -1).astype(np.uint8)
                     #lab_image = cv2.cvtColor(nd_image_array, cv2.COLOR_BGR2LAB)
-                    plt.imshow(nd_image_array)
+                    #plt.imshow(nd_image_array)
                     return nd_image_array
             
             camera.disarm()
